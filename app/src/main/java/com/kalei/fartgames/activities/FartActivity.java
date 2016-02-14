@@ -1,4 +1,7 @@
-package com.kalei.fartgames;
+package com.kalei.fartgames.activities;
+
+import com.kalei.fartgames.R;
+import com.kalei.fartgames.utils.IntentGenerator;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class SplashActivity extends AppCompatActivity {
+/**
+ * Created by risaki on 2/14/16.
+ */
+public abstract class FartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,10 @@ public class SplashActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        if (!(this instanceof SplashActivity)) {
+            startActivity(IntentGenerator.getSplashActivityIntent(this));
+            finish();
+        }
     }
 
     @Override
