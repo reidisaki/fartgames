@@ -1,5 +1,7 @@
 package com.kalei.fartgames.utils;
 
+import com.kalei.fartgames.activities.GameActivity;
+import com.kalei.fartgames.activities.MenuActivity;
 import com.kalei.fartgames.activities.SplashActivity;
 
 import android.content.Context;
@@ -12,6 +14,16 @@ public class IntentGenerator {
     public static Intent getSplashActivityIntent(Context context) {
         Intent intent = new Intent(context, SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
+    }
+
+    public static Intent getMenuActivityIntent(Context context) {
+        Intent intent = new Intent(context, MenuActivity.class);
+        return intent;
+    }
+
+    public static Intent getGameActivityIntent(Context context) {
+        Intent intent = new Intent(context, GameActivity.class);
         return intent;
     }
 

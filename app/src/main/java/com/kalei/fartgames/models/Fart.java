@@ -1,5 +1,7 @@
 package com.kalei.fartgames.models;
 
+import com.kalei.fartgames.enums.Authenticity;
+
 import java.util.Date;
 
 /**
@@ -7,6 +9,30 @@ import java.util.Date;
  */
 public class Fart {
     public String id;
+
+    public Authenticity authenticity;
+    public Date dateCreated;
+    public String fartURI;
+    public boolean isCustom;
+    public int rawId;
+
+    public boolean isMarkedCorrect() {
+        return markedCorrect;
+    }
+
+    public void setMarkedCorrect(final boolean markedCorrect) {
+        this.markedCorrect = markedCorrect;
+    }
+
+    public boolean markedCorrect;
+
+    public int getRawId() {
+        return rawId;
+    }
+
+    public void setRawId(final int rawId) {
+        this.rawId = rawId;
+    }
 
     public Authenticity getAuthenticity() {
         return authenticity;
@@ -16,9 +42,6 @@ public class Fart {
         this.authenticity = authenticity;
     }
 
-    public Authenticity authenticity;
-    public Date dateCreated;
-
     public String getFartURI() {
         return fartURI;
     }
@@ -27,21 +50,12 @@ public class Fart {
         this.fartURI = fartURI;
     }
 
-    public String fartURI;
-
-    public String getIsCustom() {
+    public boolean getIsCustom() {
         return isCustom;
     }
 
-    public void setIsCustom(final String isCustom) {
+    public void setIsCustom(final boolean isCustom) {
         this.isCustom = isCustom;
-    }
-
-    public String isCustom;
-
-    public enum Authenticity {
-        REAL,
-        FAKE;
     }
 
     public String getId() {
@@ -58,5 +72,15 @@ public class Fart {
 
     public void setDateCreated(final Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public Fart() {
+
+    }
+
+    public Fart(boolean isCustom, Authenticity authenticity, int rawId) {
+        this.isCustom = isCustom;
+        this.authenticity = authenticity;
+        this.rawId = rawId;
     }
 }

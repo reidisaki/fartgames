@@ -1,11 +1,14 @@
 package com.kalei.fartgames.activities;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+import com.kalei.fartgames.FartApplication;
 import com.kalei.fartgames.R;
 import com.kalei.fartgames.utils.IntentGenerator;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.provider.Settings.Secure;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -22,17 +25,10 @@ public abstract class FartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        if (!(this instanceof SplashActivity)) {
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+        if (!(this instanceof SplashActivity) && !FartApplication.getInstance().isSplashInitialized()) {
             startActivity(IntentGenerator.getSplashActivityIntent(this));
             finish();
         }
@@ -41,7 +37,7 @@ public abstract class FartActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_splash, menu);
+//        getMenuInflater().inflate(R.menu.menu_splash, menu);
         return true;
     }
 
@@ -58,5 +54,31 @@ public abstract class FartActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void loadAds() {
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        if (mAdView != null) {
+            String android_id = Secure.getString(this.getContentResolver(),
+                    Secure.ANDROID_ID);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(android_id).build();
+            mAdView.loadAd(adRequest);
+        }
+    }
+
+    public void loadToolbar(String title) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle(title);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
     }
 }

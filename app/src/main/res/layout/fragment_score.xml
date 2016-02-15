@@ -3,25 +3,24 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-            android:id="@+id/game_title_text"/>
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Congratulations you got X out of Y correct!"
+            android:id="@+id/score_text"
+            android:layout_gravity="center_horizontal"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/play"
-            android:id="@+id/play_button"
-            android:layout_gravity="center_horizontal|top"/>
+            android:text="Try again"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/real"
-            android:id="@+id/real_button"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fake"
-            android:id="@+id/fake_button"
-            />
+            android:text="Share"
+            android:id="@+id/button2"
+            android:layout_gravity="center_horizontal"/>
 </LinearLayout>
