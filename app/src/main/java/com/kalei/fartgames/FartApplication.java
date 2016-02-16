@@ -4,6 +4,7 @@ import com.kalei.fartgames.models.Fart;
 import com.kalei.fartgames.utils.FartGenerator;
 
 import android.app.Application;
+import android.content.res.Configuration;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,19 @@ public class FartApplication extends Application {
             return null;
         } else {
             return sGameFartList.set(index, fart);
+        }
+    }
+
+    public boolean isTablet() {
+
+        int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        if (screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            return true;
+        } else if (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            return true;
+        } else {
+            return false;
         }
     }
 

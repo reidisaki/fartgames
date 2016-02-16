@@ -30,7 +30,7 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         getSupportFragmentManager().beginTransaction().replace(R.id.game_container, mGameFragment).commit();
         setupFart();
         loadAds();
-        loadToolbar(getString(R.string.game));
+        loadToolbar(getString(R.string.app_name));
     }
 
     private void setupFart() {

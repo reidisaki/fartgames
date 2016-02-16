@@ -17,7 +17,7 @@ public class MenuActivity extends FartActivity implements IMenuActivityListener 
         setContentView(R.layout.activity_menu);
         getSupportFragmentManager().beginTransaction().replace(R.id.menu_container, MenuFragment.newInstance()).commit();
 
-        loadToolbar(getString(R.string.menu));
+        loadToolbar(getString(R.string.app_name));
         loadAds();
     }
 
