@@ -1,11 +1,14 @@
 package com.kalei.fartgames;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.kalei.fartgames.models.Fart;
 import com.kalei.fartgames.utils.FartGenerator;
 
 import android.app.Application;
 import android.content.res.Configuration;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +41,10 @@ public class FartApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
+        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                .core(new CrashlyticsCore.Builder().disabled(true).build())
+                .build();
         mIsSplashInitialized = false;
         setupGame();
     }
