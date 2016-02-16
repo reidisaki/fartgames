@@ -19,6 +19,7 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
     MediaPlayer mPlayer;
     Fart mFart;
     int mQuestionNumber, mDisplayQuestionNumber;
+    GameFragment mGameFragment;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -26,22 +27,27 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         mQuestionNumber = 0;
         mDisplayQuestionNumber = 1;
         setContentView(R.layout.activity_game);
-        getSupportFragmentManager().beginTransaction().replace(R.id.game_container, GameFragment.newInstance(mDisplayQuestionNumber)).commit();
+        mGameFragment = GameFragment.newInstance(mDisplayQuestionNumber, false);
+        getSupportFragmentManager().beginTransaction().replace(R.id.game_container, mGameFragment).commit();
         setupFart();
         loadAds();
         loadToolbar(getString(R.string.game));
     }
 
     private void setupFart() {
+        boolean isMarkedCorrect = false;
         if (mFart != null) {
             //output message
             int previousQuestion = mQuestionNumber - 1;
+            isMarkedCorrect = mFart.isMarkedCorrect();
             FartApplication.getInstance().updateFart(previousQuestion, mFart);
         }
         mFart = FartApplication.getInstance().getFart(mQuestionNumber);
         if (mFart == null) {
-            Log.i("Reid", "end game");
+            mGameFragment.displayScore();
         } else {
+            mGameFragment = GameFragment.newInstance(mDisplayQuestionNumber, isMarkedCorrect);
+            getSupportFragmentManager().beginTransaction().replace(R.id.game_container, mGameFragment).commit();
             Log.i("Reid", mFart.getAuthenticity().toString() + " questionNumber: " + mQuestionNumber + " id: " + mFart.getId());
         }
     }
@@ -64,8 +70,7 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
             Toast.makeText(this, "you got it WRONG!", Toast.LENGTH_SHORT).show();
             mFart.setMarkedCorrect(false);
         }
-        //keep track of what a user said
-        getSupportFragmentManager().beginTransaction().replace(R.id.game_container, GameFragment.newInstance(mDisplayQuestionNumber)).commit();
+
         setupFart();
         loadAds();
     }
@@ -81,11 +86,24 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
             Toast.makeText(this, "you got it WRONG!", Toast.LENGTH_SHORT).show();
             mFart.setMarkedCorrect(false);
         }
-        //keep track of fake button clicked
-        //keep track of what a user said
-        getSupportFragmentManager().beginTransaction().replace(R.id.game_container, GameFragment.newInstance(mDisplayQuestionNumber)).commit();
         setupFart();
         loadAds();
+    }
+
+    @Override
+    public void onTryAgainClicked() {
+        FartApplication.getInstance().setupGame();
+        mQuestionNumber = 0;
+        mDisplayQuestionNumber = 1;
+        getSupportFragmentManager().beginTransaction().replace(R.id.game_container, GameFragment.newInstance(mDisplayQuestionNumber, false))
+                .commit();
+        setupFart();
+        loadAds();
+    }
+
+    @Override
+    public void onShareClicked() {
+
     }
 
     public void onDestroy() {

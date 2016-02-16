@@ -1,17 +1,21 @@
 package com.kalei.fartgames.fragments;
 
+import com.kalei.fartgames.FartApplication;
 import com.kalei.fartgames.R;
 import com.kalei.fartgames.interfaces.activities.IGameActivityListener;
+import com.kalei.fartgames.models.Fart;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -20,14 +24,17 @@ import android.widget.TextView;
 public class GameFragment extends FartFragment implements OnClickListener {
 
     public IGameActivityListener mGameActivityListener;
-    public Button mPlayButton, mRealButton, mFakeButton;
-    public TextView mGameTitleText;
-    public int mDisplayQuestionNumber;
+    public Button mPlayButton, mRealButton, mFakeButton, mTryAgainButton, mShareButton;
+    public TextView mGameTitleText, mScoreText, mGameProgressText;
+    private int mDisplayQuestionNumber;
+    private boolean mIsCorrect;
+    public LinearLayout mGameLayout, mScoreLayout;
 
-    public static GameFragment newInstance(int questionNumber) {
+    public static GameFragment newInstance(int questionNumber, boolean isCorrect) {
         GameFragment fragment = new GameFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("question", questionNumber);
+        bundle.putBoolean("isCorrect", isCorrect);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -40,6 +47,8 @@ public class GameFragment extends FartFragment implements OnClickListener {
             Log.i("Reid", "args is null");
         } else {
             mDisplayQuestionNumber = args.getInt("question");
+            mIsCorrect = args.getBoolean("isCorrect", false);
+            Log.i("Reid", "mCorrect is : " + mIsCorrect);
         }
     }
 
@@ -54,7 +63,19 @@ public class GameFragment extends FartFragment implements OnClickListener {
         mFakeButton = (Button) rootView.findViewById(R.id.fake_button);
         mFakeButton.setOnClickListener(this);
         mGameTitleText = (TextView) rootView.findViewById(R.id.game_title_text);
+        mGameProgressText = (TextView) rootView.findViewById(R.id.game_progress_text);
         mGameTitleText.setText(String.format("Question #%s", mDisplayQuestionNumber));
+        mScoreLayout = (LinearLayout) rootView.findViewById(R.id.score_layout);
+        mGameLayout = (LinearLayout) rootView.findViewById(R.id.game_layout);
+        mScoreText = (TextView) rootView.findViewById(R.id.score_text);
+        mTryAgainButton = (Button) rootView.findViewById(R.id.try_again_btn);
+        mShareButton = (Button) rootView.findViewById(R.id.share_btn);
+        mShareButton.setOnClickListener(this);
+        mTryAgainButton.setOnClickListener(this);
+
+        if (mDisplayQuestionNumber > 1) {
+            mGameProgressText.setText(Html.fromHtml(displayProgressText()));
+        }
         return rootView;
     }
 
@@ -81,6 +102,37 @@ public class GameFragment extends FartFragment implements OnClickListener {
             case R.id.real_button:
                 mGameActivityListener.onRealButtonClicked();
                 break;
+            case R.id.share_btn:
+                mGameActivityListener.onShareClicked();
+                break;
+            case R.id.try_again_btn:
+                mScoreLayout.setVisibility(View.GONE);
+                mGameLayout.setVisibility(View.VISIBLE);
+                mGameActivityListener.onTryAgainClicked();
+                break;
         }
+    }
+
+    private String displayProgressText() {
+        return (mIsCorrect ? "You got it <span color=\"green\">Right!</span>" : "You got it <span color=\"red\">Wrong!</span>");
+    }
+
+    public void displayScore() {
+        mGameLayout.setVisibility(View.GONE);
+        mScoreLayout.setVisibility(View.VISIBLE);
+        mGameProgressText.setText("");
+        mScoreText.setText(calculateScore());
+    }
+
+    private String calculateScore() {
+        String scoreString;
+        int correct = 0;
+        for (Fart f : FartApplication.getInstance().getGameFartList()) {
+            if (f.isMarkedCorrect()) {
+                correct++;
+            }
+        }
+        scoreString = String.format("You got %s out of %s questions correct!", correct, mDisplayQuestionNumber);
+        return scoreString;
     }
 }

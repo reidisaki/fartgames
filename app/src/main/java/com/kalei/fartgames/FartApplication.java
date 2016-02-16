@@ -38,11 +38,11 @@ public class FartApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mIsSplashInitialized = false;
-        sFartList = new ArrayList<>();
         setupGame();
     }
 
-    private void setupGame() {
+    public void setupGame() {
+        sFartList = new ArrayList<>();
         TOTAL_FARTS = FartGenerator.numberOfSounds();
         FartGenerator.loadFarts(sFartList, this);
         sGameFartList = FartGenerator.shuffleFarts(sFartList, TOTAL_QUESTIONS);
@@ -62,5 +62,9 @@ public class FartApplication extends Application {
         } else {
             return sGameFartList.set(index, fart);
         }
+    }
+
+    public ArrayList<Fart> getGameFartList() {
+        return sGameFartList;
     }
 }

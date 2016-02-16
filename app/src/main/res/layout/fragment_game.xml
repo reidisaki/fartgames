@@ -1,27 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-            android:id="@+id/game_title_text"/>
+    <LinearLayout
+            android:id="@+id/game_layout"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            tools:visibility="visible"
+            android:layout_height="match_parent">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  tools:text="Question # 1"
+                  android:id="@+id/game_title_text"/>
+        <TextView android:layout_width="wrap_content"
+                  tools:text="You got it wrong!!"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/game_progress_text"/>
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/play"
-            android:id="@+id/play_button"
-            android:layout_gravity="center_horizontal|top"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/real"
-            android:id="@+id/real_button"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fake"
-            android:id="@+id/fake_button"
-            />
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/play"
+                android:id="@+id/play_button"
+                android:layout_gravity="center_horizontal|top"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/real"
+                android:id="@+id/real_button"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fake"
+                android:id="@+id/fake_button"
+                />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:visibility="gone"
+                  tools:visibility="visible"
+                  android:id="@+id/score_layout"
+                  android:gravity="center">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Congratulations you got X out of Y correct!"
+                android:id="@+id/score_text"
+                android:gravity="center"
+                android:paddingBottom="20dp"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center">
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Try again"
+                    android:id="@+id/try_again_btn"
+                    android:layout_gravity="center_horizontal"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Share"
+                    android:id="@+id/share_btn"
+                    android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
