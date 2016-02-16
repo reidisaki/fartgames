@@ -2,6 +2,7 @@ package com.kalei.fartgames.utils;
 
 import com.kalei.fartgames.activities.GameActivity;
 import com.kalei.fartgames.activities.MenuActivity;
+import com.kalei.fartgames.activities.SettingsActivity;
 import com.kalei.fartgames.activities.SplashActivity;
 
 import android.content.Context;
@@ -24,6 +25,11 @@ public class IntentGenerator {
 
     public static Intent getGameActivityIntent(Context context) {
         Intent intent = new Intent(context, GameActivity.class);
+        return intent;
+    }
+
+    public static Intent getSettingsActivityIntent(Context context) {
+        Intent intent = new Intent(context, SettingsActivity.class);
         return intent;
     }
 

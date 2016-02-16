@@ -8,5 +8,5 @@ public interface IGameActivityListener {
     public void onRealButtonClicked();
     public void onFakeButtonClicked();
     public void onTryAgainClicked();
-    public void onShareClicked();
+    public void onShareClicked(int numCorrect);
 }

@@ -15,7 +15,7 @@ public class FartApplication extends Application {
     private static ArrayList<Fart> sFartList;
     private static ArrayList<Fart> sGameFartList;
     private boolean mIsSplashInitialized = false;
-    private static int TOTAL_QUESTIONS = 5;
+    private static int TOTAL_QUESTIONS = 10;
     private static int TOTAL_FARTS = 5;
 
     public FartApplication() {

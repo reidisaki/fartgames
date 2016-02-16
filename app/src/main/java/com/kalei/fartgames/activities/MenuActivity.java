@@ -28,11 +28,17 @@ public class MenuActivity extends FartActivity implements IMenuActivityListener 
 
     @Override
     public void onCustomButtonClicked() {
-
+        //nothing right now
+        //TODO: allow users to add a custom fart, where they can add itself to the game, and make it real or fake.
     }
 
     @Override
     public void onSettingsButtonClicked() {
+        startActivity(IntentGenerator.getSettingsActivityIntent(this));
+    }
 
+    @Override
+    public void onShareButtonClicked() {
+        super.onShareClicked(-1);
     }
 }

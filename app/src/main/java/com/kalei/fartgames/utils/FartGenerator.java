@@ -53,6 +53,7 @@ public class FartGenerator {
             fart.setIsCustom(false);
             fartList.add(fart);
         }
+        //TODO: need to have this read from the external folder for this app for custom fart noises as well. Currently only reads from the RAW folder
     }
 
     public static ArrayList<Fart> shuffleFarts(ArrayList<Fart> ar, int totalQuestions) {

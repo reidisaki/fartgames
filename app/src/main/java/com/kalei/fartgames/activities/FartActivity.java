@@ -7,6 +7,7 @@ import com.kalei.fartgames.FartApplication;
 import com.kalei.fartgames.R;
 import com.kalei.fartgames.utils.IntentGenerator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.support.v7.app.AppCompatActivity;
@@ -80,5 +81,20 @@ public abstract class FartActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void onShareClicked(int numCorrect) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+
+        if (numCorrect == -1) {
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text_generic));
+        } else {
+            sendIntent.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.share_text),
+                    numCorrect, FartApplication.getInstance().getGameFartList().size()));
+        }
+
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 }

@@ -16,7 +16,7 @@ import android.widget.Button;
  */
 public class MenuFragment extends FartFragment implements View.OnClickListener {
     public IMenuActivityListener mMenuActivityListener;
-    public Button mPlayButton, mCustomButton, mSettingsButton;
+    public Button mPlayButton, mCustomButton, mSettingsButton, mShareButton;
 
     public static MenuFragment newInstance() {
         MenuFragment fragment = new MenuFragment();
@@ -29,6 +29,10 @@ public class MenuFragment extends FartFragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
         mPlayButton = (Button) rootView.findViewById(R.id.play_button);
         mPlayButton.setOnClickListener(this);
+        mShareButton = (Button) rootView.findViewById(R.id.share_btn);
+        mShareButton.setOnClickListener(this);
+        mSettingsButton = (Button) rootView.findViewById(R.id.settings_button);
+        mSettingsButton.setOnClickListener(this);
         return rootView;
     }
 
@@ -48,6 +52,13 @@ public class MenuFragment extends FartFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.play_button:
                 mMenuActivityListener.onPlayButtonClicked();
+                break;
+            case R.id.share_btn:
+                mMenuActivityListener.onShareButtonClicked();
+                break;
+            case R.id.settings_button:
+                mMenuActivityListener.onSettingsButtonClicked();
+                break;
         }
     }
 }

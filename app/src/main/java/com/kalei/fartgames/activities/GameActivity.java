@@ -10,7 +10,6 @@ import com.kalei.fartgames.models.Fart;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by risaki on 2/14/16.
@@ -64,10 +63,10 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         mQuestionNumber++;
         mDisplayQuestionNumber++;
         if (mFart.getAuthenticity() == Authenticity.REAL) {
-            Toast.makeText(this, "you got it right!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "you got it right!", Toast.LENGTH_SHORT).show();
             mFart.setMarkedCorrect(true);
         } else {
-            Toast.makeText(this, "you got it WRONG!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "you got it WRONG!", Toast.LENGTH_SHORT).show();
             mFart.setMarkedCorrect(false);
         }
 
@@ -80,10 +79,10 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         mQuestionNumber++;
         mDisplayQuestionNumber++;
         if (mFart.getAuthenticity() == Authenticity.FAKE) {
-            Toast.makeText(this, "you got it right!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "you got it right!", Toast.LENGTH_SHORT).show();
             mFart.setMarkedCorrect(true);
         } else {
-            Toast.makeText(this, "you got it WRONG!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "you got it WRONG!", Toast.LENGTH_SHORT).show();
             mFart.setMarkedCorrect(false);
         }
         setupFart();
@@ -102,8 +101,8 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
     }
 
     @Override
-    public void onShareClicked() {
-
+    public void onShareClicked(int numCorrect) {
+        super.onShareClicked(numCorrect);
     }
 
     public void onDestroy() {

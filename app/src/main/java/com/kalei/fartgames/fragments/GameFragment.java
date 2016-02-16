@@ -26,7 +26,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
     public IGameActivityListener mGameActivityListener;
     public Button mPlayButton, mRealButton, mFakeButton, mTryAgainButton, mShareButton;
     public TextView mGameTitleText, mScoreText, mGameProgressText;
-    private int mDisplayQuestionNumber;
+    private int mDisplayQuestionNumber, mNumberCorrect;
     private boolean mIsCorrect;
     public LinearLayout mGameLayout, mScoreLayout;
 
@@ -103,7 +103,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
                 mGameActivityListener.onRealButtonClicked();
                 break;
             case R.id.share_btn:
-                mGameActivityListener.onShareClicked();
+                mGameActivityListener.onShareClicked(mNumberCorrect);
                 break;
             case R.id.try_again_btn:
                 mScoreLayout.setVisibility(View.GONE);
@@ -114,7 +114,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
     }
 
     private String displayProgressText() {
-        return (mIsCorrect ? "You got it <span color=\"green\">Right!</span>" : "You got it <span color=\"red\">Wrong!</span>");
+        return (mIsCorrect ? "You got it <font color='#13B765'>Right!</font>" : "You got it <font color='#E23939'>Wrong!</font>");
     }
 
     public void displayScore() {
@@ -126,13 +126,13 @@ public class GameFragment extends FartFragment implements OnClickListener {
 
     private String calculateScore() {
         String scoreString;
-        int correct = 0;
+        mNumberCorrect = 0;
         for (Fart f : FartApplication.getInstance().getGameFartList()) {
             if (f.isMarkedCorrect()) {
-                correct++;
+                mNumberCorrect++;
             }
         }
-        scoreString = String.format("You got %s out of %s questions correct!", correct, mDisplayQuestionNumber);
+        scoreString = String.format("You got %s out of %s questions correct!", mNumberCorrect, mDisplayQuestionNumber);
         return scoreString;
     }
 }

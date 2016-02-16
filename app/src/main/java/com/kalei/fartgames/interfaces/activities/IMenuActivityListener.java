@@ -7,4 +7,5 @@ public interface IMenuActivityListener {
     public void onPlayButtonClicked();
     public void onCustomButtonClicked();
     public void onSettingsButtonClicked();
+    public void onShareButtonClicked();
 }
