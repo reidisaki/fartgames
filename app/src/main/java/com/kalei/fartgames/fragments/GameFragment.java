@@ -121,7 +121,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
         mGameLayout.setVisibility(View.GONE);
         mScoreLayout.setVisibility(View.VISIBLE);
         mGameProgressText.setText("");
-        mScoreText.setText(calculateScore());
+        mScoreText.setText(Html.fromHtml(calculateScore()));
     }
 
     private String calculateScore() {
@@ -132,7 +132,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
                 mNumberCorrect++;
             }
         }
-        scoreString = String.format("You got %s out of %s questions correct!", mNumberCorrect, mDisplayQuestionNumber);
+        scoreString = String.format("You got <b>%s</b> out of <b>%s</b> questions correct!", mNumberCorrect, mDisplayQuestionNumber);
         return scoreString;
     }
 }

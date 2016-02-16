@@ -14,7 +14,7 @@ import android.content.Intent;
 public class IntentGenerator {
     public static Intent getSplashActivityIntent(Context context) {
         Intent intent = new Intent(context, SplashActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return intent;
     }
 

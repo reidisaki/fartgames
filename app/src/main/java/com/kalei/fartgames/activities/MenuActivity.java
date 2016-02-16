@@ -24,6 +24,7 @@ public class MenuActivity extends FartActivity implements IMenuActivityListener 
     @Override
     public void onPlayButtonClicked() {
         startActivity(IntentGenerator.getGameActivityIntent(this));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
