@@ -15,7 +15,7 @@ public class SettingsActivity extends FartActivity {
         setContentView(R.layout.activity_settings);
         getSupportFragmentManager().beginTransaction().replace(R.id.settings_container, SettingsFragment.newInstance()).commit();
 
-        loadToolbar(getString(R.string.action_settings));
         loadAds();
+        loadToolbar(getString(R.string.action_settings));
     }
 }
