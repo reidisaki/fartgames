@@ -6,10 +6,14 @@ import com.kalei.fartgames.models.Fart;
 import com.kalei.fartgames.utils.FartGenerator;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 
-import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by risaki on 2/14/16.
@@ -83,6 +87,29 @@ public class FartApplication extends Application {
         } else {
             return false;
         }
+    }
+
+    public static String getVersionName(Context context) {
+        PackageInfo pInfo;
+        try {
+            pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return pInfo.versionName;
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
+    public static int getVersionCode(Context context) {
+        PackageInfo pInfo;
+
+        try {
+            pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return pInfo.versionCode;
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public ArrayList<Fart> getGameFartList() {

@@ -1,5 +1,6 @@
 package com.kalei.fartgames.fragments;
 
+import com.kalei.fartgames.FartApplication;
 import com.kalei.fartgames.R;
 import com.kalei.fartgames.interfaces.activities.IMenuActivityListener;
 
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by risaki on 2/14/16.
@@ -17,6 +19,7 @@ import android.widget.Button;
 public class MenuFragment extends FartFragment implements View.OnClickListener {
     public IMenuActivityListener mMenuActivityListener;
     public Button mPlayButton, mCustomButton, mSettingsButton, mShareButton;
+    public TextView mVersionText;
 
     public static MenuFragment newInstance() {
         MenuFragment fragment = new MenuFragment();
@@ -33,6 +36,8 @@ public class MenuFragment extends FartFragment implements View.OnClickListener {
         mShareButton.setOnClickListener(this);
         mSettingsButton = (Button) rootView.findViewById(R.id.settings_button);
         mSettingsButton.setOnClickListener(this);
+        mVersionText = (TextView) rootView.findViewById(R.id.version_text);
+        mVersionText.setText("v " + FartApplication.getInstance().getVersionName(getActivity()));
         return rootView;
     }
 
