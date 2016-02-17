@@ -130,19 +130,19 @@ public class GameFragment extends FartFragment implements OnClickListener {
     private String getFunnyMessage() {
         String outputString = "";
         double ratioCorrect = (double) mNumberCorrect / mDisplayQuestionNumber;
-        if (ratioCorrect >= .3f && ratioCorrect < .5f) {
+        if (ratioCorrect >= .3 && ratioCorrect < .5) {
             outputString = "<i>not bad.. ok no, it's <b>TERRIBLE</b></i>";
         }
         if (mNumberCorrect == mDisplayQuestionNumber) {
             outputString = "<b><i>AMAZING</i></b>";
         }
-        if (ratioCorrect >= .5f && ratioCorrect < .8f) {
+        if (ratioCorrect >= .5 && ratioCorrect < .8) {
             outputString = "<b><i>EHH...</i></b>";
         }
-        if (ratioCorrect >= .8f && ratioCorrect < .99f) {
+        if (ratioCorrect >= .8 && ratioCorrect < .99) {
             outputString = "<b><i>ALMOST THERE!</i></b>";
         }
-        if (ratioCorrect < .3f) {
+        if (ratioCorrect < .3) {
             outputString = "<b><i>IS THE VOLUME ON?</i></b>";
         }
         return outputString;
