@@ -132,7 +132,13 @@ public class GameFragment extends FartFragment implements OnClickListener {
                 mNumberCorrect++;
             }
         }
-        scoreString = String.format("You got <b>%s</b> out of <b>%s</b> questions correct!", mNumberCorrect, mDisplayQuestionNumber);
+        if (mNumberCorrect == mDisplayQuestionNumber) {
+            scoreString = String
+                    .format("<i><b>AMAZING!</b></i> <br /> You got <b>%s</b> out of <b>%s</b> questions correct!", mNumberCorrect, mDisplayQuestionNumber);
+        } else {
+            scoreString = String.format("You got <b>%s</b> out of <b>%s</b> questions correct!", mNumberCorrect, mDisplayQuestionNumber);
+        }
+        
         return scoreString;
     }
 }
