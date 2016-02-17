@@ -66,6 +66,9 @@
                   tools:visibility="visible"
                   android:id="@+id/score_layout"
                   android:gravity="center">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/funny_message_text"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

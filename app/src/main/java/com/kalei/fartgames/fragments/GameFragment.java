@@ -25,7 +25,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
 
     public IGameActivityListener mGameActivityListener;
     public Button mPlayButton, mRealButton, mFakeButton, mTryAgainButton, mShareButton;
-    public TextView mGameTitleText, mScoreText, mGameProgressText;
+    public TextView mGameTitleText, mScoreText, mGameProgressText, mFunnyMessage;
     private int mDisplayQuestionNumber, mNumberCorrect;
     private boolean mIsCorrect;
     public LinearLayout mGameLayout, mScoreLayout;
@@ -68,6 +68,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
         mScoreLayout = (LinearLayout) rootView.findViewById(R.id.score_layout);
         mGameLayout = (LinearLayout) rootView.findViewById(R.id.game_layout);
         mScoreText = (TextView) rootView.findViewById(R.id.score_text);
+        mFunnyMessage = (TextView) rootView.findViewById(R.id.funny_message_text);
         mTryAgainButton = (Button) rootView.findViewById(R.id.try_again_btn);
         mShareButton = (Button) rootView.findViewById(R.id.share_btn);
         mShareButton.setOnClickListener(this);
@@ -122,6 +123,29 @@ public class GameFragment extends FartFragment implements OnClickListener {
         mScoreLayout.setVisibility(View.VISIBLE);
         mGameProgressText.setText("");
         mScoreText.setText(Html.fromHtml(calculateScore()));
+        mFunnyMessage.setTextSize(26);
+        mFunnyMessage.setText(Html.fromHtml(getFunnyMessage()));
+    }
+
+    private String getFunnyMessage() {
+        String outputString = "";
+        double ratioCorrect = (double) mNumberCorrect / mDisplayQuestionNumber;
+        if (ratioCorrect >= .3f && ratioCorrect < .5f) {
+            outputString = "<i>not bad.. ok no, it's <b>TERRIBLE</b></i>";
+        }
+        if (mNumberCorrect == mDisplayQuestionNumber) {
+            outputString = "<b><i>AMAZING</i></b>";
+        }
+        if (ratioCorrect >= .5f && ratioCorrect < .8f) {
+            outputString = "<b><i>EHH...</i></b>";
+        }
+        if (ratioCorrect >= .8f && ratioCorrect < .99f) {
+            outputString = "<b><i>ALMOST THERE!</i></b>";
+        }
+        if (ratioCorrect < .3f) {
+            outputString = "<b><i>IS THE VOLUME ON?</i></b>";
+        }
+        return outputString;
     }
 
     private String calculateScore() {
@@ -132,13 +156,8 @@ public class GameFragment extends FartFragment implements OnClickListener {
                 mNumberCorrect++;
             }
         }
-        if (mNumberCorrect == mDisplayQuestionNumber) {
-            scoreString = String
-                    .format("<i><b>AMAZING!</b></i> <br /> You got <b>%s</b> out of <b>%s</b> questions correct!", mNumberCorrect, mDisplayQuestionNumber);
-        } else {
-            scoreString = String.format("You got <b>%s</b> out of <b>%s</b> questions correct!", mNumberCorrect, mDisplayQuestionNumber);
-        }
-        
+        scoreString = String.format("You got <b>%s</b> out of <b>%s</b> questions correct!", mNumberCorrect, mDisplayQuestionNumber);
+
         return scoreString;
     }
 }
