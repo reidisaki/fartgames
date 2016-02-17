@@ -2,6 +2,7 @@ package com.kalei.fartgames;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.flurry.android.FlurryAgent;
 import com.kalei.fartgames.models.Fart;
 import com.kalei.fartgames.utils.FartGenerator;
 
@@ -26,6 +27,8 @@ public class FartApplication extends Application {
     private static int TOTAL_QUESTIONS = 10;
     private static int TOTAL_FARTS = 5;
 
+    private static String FLURRY_KEY = "32PG2RYZ3GNG6SRBD75Q";
+
     public FartApplication() {
         mInstance = this;
     }
@@ -49,6 +52,11 @@ public class FartApplication extends Application {
         Crashlytics crashlyticsKit = new Crashlytics.Builder()
                 .core(new CrashlyticsCore.Builder().disabled(true).build())
                 .build();
+        // configure Flurry
+        FlurryAgent.setLogEnabled(false);
+
+        // init Flurry
+        FlurryAgent.init(this, FLURRY_KEY);
         mIsSplashInitialized = false;
         setupGame();
     }

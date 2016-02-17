@@ -62,7 +62,8 @@ public abstract class FartActivity extends AppCompatActivity {
         if (mAdView != null) {
             String android_id = Secure.getString(this.getContentResolver(),
                     Secure.ANDROID_ID);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(android_id).build();
+//            AdRequest adRequest = new AdRequest.Builder().addTestDevice(android_id).build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
         }
     }

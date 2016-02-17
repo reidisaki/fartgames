@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.kalei.fartgames">
 
+    <!--required permission-->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!--optional permission - highly recommended-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--optional permission -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <application
             android:name=".FartApplication"
             android:allowBackup="true"
@@ -11,8 +16,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="c972bfa76ea337247175a6cc36112e65a8385cd4" />
+                android:name="io.fabric.ApiKey"
+                android:value="c972bfa76ea337247175a6cc36112e65a8385cd4"/>
         <activity
                 android:noHistory="true"
                 android:name=".activities.SplashActivity"

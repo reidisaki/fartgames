@@ -1,11 +1,13 @@
 package com.kalei.fartgames.fragments;
 
+import com.flurry.android.FlurryAgent;
 import com.kalei.fartgames.FartApplication;
 import com.kalei.fartgames.R;
 import com.kalei.fartgames.interfaces.activities.IGameActivityListener;
 import com.kalei.fartgames.models.Fart;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -50,6 +52,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
             mIsCorrect = args.getBoolean("isCorrect", false);
             Log.i("Reid", "mCorrect is : " + mIsCorrect);
         }
+        FlurryAgent.onStartSession(getActivity());
     }
 
     @Nullable
@@ -125,6 +128,10 @@ public class GameFragment extends FartFragment implements OnClickListener {
         mScoreText.setText(Html.fromHtml(calculateScore()));
         mFunnyMessage.setTextSize(26);
         mFunnyMessage.setText(Html.fromHtml(getFunnyMessage()));
+        Log.i("Reid", "product: " + Build.PRODUCT + " model: " + Build.MODEL + " device: " + Build.DEVICE + " total Number Right : " + mNumberCorrect +
+                " out of " + mDisplayQuestionNumber);
+        FlurryAgent.logEvent("Final Score: " + "product: " + Build.PRODUCT + " model: " + Build.MODEL + " device: " + Build.DEVICE + " total Number Right : " +
+                mNumberCorrect + " out of " + mDisplayQuestionNumber);
     }
 
     private String getFunnyMessage() {
@@ -159,5 +166,11 @@ public class GameFragment extends FartFragment implements OnClickListener {
         scoreString = String.format("You got <b>%s</b> out of <b>%s</b> questions correct!", mNumberCorrect, mDisplayQuestionNumber);
 
         return scoreString;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(getActivity());
     }
 }
