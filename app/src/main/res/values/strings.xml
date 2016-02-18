@@ -13,10 +13,11 @@
     <string name="fake">Fake</string>
     <string name="banner_ad_unit_id">ca-app-pub-5747146577301976/9542273641</string>
     <string name="share_text"
-            formatted="false">Check out this new app! I got %s out of %s correct, try and beat that! It\'s disgusting! http://play.google.com
+            formatted="false">Check out this new app! I got %s out of %s correct, try and beat that! It\'s disgusting!
+        https://play.google.com/store/apps/details?id=com.kalei.fartgames
     </string>
     <string name="settings_text">This app was basically built to sharpen your senses if you can tell a real fart from a fake one. Oh and also try and find the
         easter egg!
     </string>
-    <string name="share_text_generic">Check out this new app! It\'s disgusting! http://play.google.com</string>
+    <string name="share_text_generic">Check out this new app! It\'s disgusting! https://play.google.com/store/apps/details?id=com.kalei.fartgames</string>
 </resources>
