@@ -1,5 +1,9 @@
 package com.kalei.fartgames.activities;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import com.kalei.fartgames.FartApplication;
 import com.kalei.fartgames.R;
 import com.kalei.fartgames.enums.Authenticity;
@@ -19,6 +23,7 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
     Fart mFart;
     int mQuestionNumber, mDisplayQuestionNumber;
     GameFragment mGameFragment;
+    InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -31,6 +36,21 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         setupFart();
         loadAds();
         loadToolbar(getString(R.string.app_name));
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial));
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mInterstitialAd.show();
+            }
+
+            @Override
+            public void onAdClosed() {
+
+            }
+        });
     }
 
     private void setupFart() {
@@ -43,6 +63,7 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         }
         mFart = FartApplication.getInstance().getFart(mQuestionNumber);
         if (mFart == null) {
+            requestNewInterstitial();
             mGameFragment.displayScore();
         } else {
             mGameFragment = GameFragment.newInstance(mDisplayQuestionNumber, isMarkedCorrect);
@@ -116,5 +137,13 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
     protected void onPause() {
         super.onPause();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 }

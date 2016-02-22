@@ -4,6 +4,7 @@
     <string name="game">Game</string>
     <string name="menu">Menu</string>
     <string name="play">Play</string>
+    <string name="interstitial">ca-app-pub-5747146577301976/4157254443</string>
     <string name="custom">Custom</string>
     <string name="score_text">You scored {0} out of {1} questions correctly!</string>
     <string name="try_again">Try again?</string>

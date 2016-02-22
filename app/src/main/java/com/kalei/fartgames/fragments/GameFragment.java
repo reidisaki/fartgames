@@ -111,7 +111,7 @@ public class GameFragment extends FartFragment implements OnClickListener {
                 break;
             case R.id.try_again_btn:
                 mScoreLayout.setVisibility(View.GONE);
-                mGameLayout.setVisibility(View.VISIBLE);
+                mGameLayout.setVisibility(View.GONE);
                 mGameActivityListener.onTryAgainClicked();
                 break;
         }
