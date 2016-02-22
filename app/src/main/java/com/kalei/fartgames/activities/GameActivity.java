@@ -38,12 +38,11 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         loadToolbar(getString(R.string.app_name));
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial));
-
+        requestNewInterstitial();
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                mInterstitialAd.show();
             }
 
             @Override
@@ -63,7 +62,6 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         }
         mFart = FartApplication.getInstance().getFart(mQuestionNumber);
         if (mFart == null) {
-            requestNewInterstitial();
             mGameFragment.displayScore();
         } else {
             mGameFragment = GameFragment.newInstance(mDisplayQuestionNumber, isMarkedCorrect);
@@ -83,11 +81,16 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
     public void onRealButtonClicked() {
         mQuestionNumber++;
         mDisplayQuestionNumber++;
+
         if (mFart.getAuthenticity() == Authenticity.REAL) {
 //            Toast.makeText(this, "you got it right!", Toast.LENGTH_SHORT).show();
             mFart.setMarkedCorrect(true);
+            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct);
+            mPlayer.start();
         } else {
 //            Toast.makeText(this, "you got it WRONG!", Toast.LENGTH_SHORT).show();
+            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.wrong);
+            mPlayer.start();
             mFart.setMarkedCorrect(false);
         }
 
@@ -101,9 +104,13 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         mDisplayQuestionNumber++;
         if (mFart.getAuthenticity() == Authenticity.FAKE) {
 //            Toast.makeText(this, "you got it right!", Toast.LENGTH_SHORT).show();
+            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct);
+            mPlayer.start();
             mFart.setMarkedCorrect(true);
         } else {
 //            Toast.makeText(this, "you got it WRONG!", Toast.LENGTH_SHORT).show();
+            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.wrong);
+            mPlayer.start();
             mFart.setMarkedCorrect(false);
         }
         setupFart();
@@ -112,6 +119,9 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
 
     @Override
     public void onTryAgainClicked() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
         FartApplication.getInstance().setupGame();
         mQuestionNumber = 0;
         mDisplayQuestionNumber = 1;
