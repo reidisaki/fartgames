@@ -38,20 +38,24 @@ public class FartGenerator {
     public static void loadFarts(List<Fart> fartList, Context context) {
         Field[] fields = R.raw.class.getFields();
         for (int count = 0; count < fields.length; count++) {
-            Fart fart = new Fart();
+            if (fields[count].getName().contains(context.getString(R.string.real).toLowerCase()) ||
+                    fields[count].getName().contains(context.getString(R.string.fake).toLowerCase())) {
 
-            if (fields[count].getName().contains(context.getString(R.string.real).toLowerCase())) {
-                fart.setAuthenticity(Authenticity.REAL);
-            } else {
-                fart.setAuthenticity(Authenticity.FAKE);
+                Fart fart = new Fart();
+
+                if (fields[count].getName().contains(context.getString(R.string.real).toLowerCase())) {
+                    fart.setAuthenticity(Authenticity.REAL);
+                } else if (fields[count].getName().contains(context.getString(R.string.fake).toLowerCase())) {
+                    fart.setAuthenticity(Authenticity.FAKE);
+                }
+//            Log.i("Reid", "fart is real : " + fart.getAuthenticity().toString() + " name: " + fields[count].getName());
+                fart.setId(String.valueOf(count));
+                fart.setRawId(context.getResources()
+                        .getIdentifier(fields[count].getName(), "raw", context.getPackageName()));
+
+                fart.setIsCustom(false);
+                fartList.add(fart);
             }
-            Log.i("Reid", "fart is real : " + fart.getAuthenticity().toString() + " name: " + fields[count].getName());
-            fart.setId(String.valueOf(count));
-            fart.setRawId(context.getResources()
-                    .getIdentifier(fields[count].getName(), "raw", context.getPackageName()));
-
-            fart.setIsCustom(false);
-            fartList.add(fart);
         }
         //TODO: need to have this read from the external folder for this app for custom fart noises as well. Currently only reads from the RAW folder
     }

@@ -13,7 +13,6 @@ import com.kalei.fartgames.models.Fart;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * Created by risaki on 2/14/16.
@@ -62,11 +61,11 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         }
         mFart = FartApplication.getInstance().getFart(mQuestionNumber);
         if (mFart == null) {
+            requestNewInterstitial();
             mGameFragment.displayScore();
         } else {
             mGameFragment = GameFragment.newInstance(mDisplayQuestionNumber, isMarkedCorrect);
             getSupportFragmentManager().beginTransaction().replace(R.id.game_container, mGameFragment).commit();
-            Log.i("Reid", mFart.getAuthenticity().toString() + " questionNumber: " + mQuestionNumber + " id: " + mFart.getId());
         }
     }
 
