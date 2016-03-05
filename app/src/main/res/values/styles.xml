@@ -16,5 +16,10 @@
            parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay"
            parent="ThemeOverlay.AppCompat.Light"/>
-
+    <style name="ShowcaseViewEdited">
+        <item name="sv_titleTextAppearance">@style/TextAppearance.ShowcaseView.Title</item>
+        <item name="sv_detailTextAppearance">@style/TextAppearance.ShowcaseView.Detail</item>
+        <item name="sv_backgroundColor">@color/colorPrimaryDark</item>
+        <item name="sv_buttonText">@android:string/ok</item>
+    </style>
 </resources>

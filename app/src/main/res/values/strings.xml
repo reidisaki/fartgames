@@ -12,6 +12,10 @@
     <string name="loading">Loading.... please wait</string>
     <string name="real">Real</string>
     <string name="fake">Fake</string>
+    <string name="click_play">Tap this first to hear a fart sound</string>
+    <string name="click_real">Tap this if you think its a real fart</string>
+    <string name="click_fake">Tap this if you think its a fake fart</string>
+
     <string name="banner_ad_unit_id">ca-app-pub-5747146577301976/9542273641</string>
     <string name="share_text"
             formatted="false">Check out this new app! I got %s out of %s correct, try and beat that! It\'s disgusting!

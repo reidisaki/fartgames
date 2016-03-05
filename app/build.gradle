@@ -9,8 +9,8 @@ android {
         applicationId "com.kalei.fartgames"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 7
-        versionName "1.1.1"
+        versionCode 8
+        versionName "1.1.2"
     }
     buildTypes {
         release {
@@ -50,6 +50,7 @@ dependencies {
         transitive = true;
     }
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.github.amlcurran.showcaseview:library:5.4.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile files('libs/FlurryAnalytics-6.2.0.jar')

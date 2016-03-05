@@ -1,6 +1,8 @@
 package com.kalei.fartgames.fragments;
 
 import com.flurry.android.FlurryAgent;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.kalei.fartgames.FartApplication;
 import com.kalei.fartgames.R;
 import com.kalei.fartgames.interfaces.activities.IGameActivityListener;
@@ -80,6 +82,61 @@ public class GameFragment extends FartFragment implements OnClickListener {
         if (mDisplayQuestionNumber > 1) {
             mGameProgressText.setText(Html.fromHtml(displayProgressText()));
         }
+
+        ShowcaseView v = new ShowcaseView.Builder(getActivity())
+                .setStyle(R.style.ShowcaseViewEdited)
+                .setTarget(new ViewTarget(mPlayButton))
+                .singleShot(1)
+                .setContentTitle(getActivity().getResources().getString(R.string.click_play)).build();
+
+        v.overrideButtonClick(new OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                try {
+                    ((View) view.getParent()).setVisibility(View.GONE);
+                } catch (ClassCastException e) {
+                    // In case if item is the top most view
+                }
+                Button b = (Button) view.findViewById(R.id.showcase_button);
+                b.setVisibility(View.GONE);
+
+//                ShowcaseView v = new ShowcaseView.Builder(getActivity())
+//                        .setStyle(R.style.ShowcaseViewEdited)
+//                        .setTarget(new ViewTarget(mFakeButton))
+//                        .setContentTitle(getActivity().getResources().getString(R.string.click_fake)).build();
+//                v.overrideButtonClick(new OnClickListener() {
+//                    @Override
+//                    public void onClick(final View view) {
+//                        try {
+//                            ((View) view.getParent()).setVisibility(View.GONE);
+//                        } catch (ClassCastException e) {
+//                            // In case if item is the top most view
+//                        }
+//                        Button b = (Button) view.findViewById(R.id.showcase_button);
+//                        b.setVisibility(View.GONE);
+//
+//                        ShowcaseView v = new ShowcaseView.Builder(getActivity())
+//                                .setStyle(R.style.ShowcaseViewEdited)
+//                                .setTarget(new ViewTarget(mRealButton))
+//                                .setContentTitle(getActivity().getResources().getString(R.string.click_real)).build();
+//
+//                        v.overrideButtonClick(new OnClickListener() {
+//                            @Override
+//                            public void onClick(final View view) {
+//                                try {
+//                                    ((View) view.getParent()).setVisibility(View.GONE);
+//                                } catch (ClassCastException e) {
+//                                    // In case if item is the top most view
+//                                }
+//                                Button b = (Button) view.findViewById(R.id.showcase_button);
+//                                b.setVisibility(View.GONE);
+//                            }
+//                        });
+//                    }
+//                });
+            }
+        });
+
         return rootView;
     }
 
@@ -130,8 +187,9 @@ public class GameFragment extends FartFragment implements OnClickListener {
         mFunnyMessage.setText(Html.fromHtml(getFunnyMessage()));
         Log.i("Reid", "product: " + Build.PRODUCT + " model: " + Build.MODEL + " device: " + Build.DEVICE + " total Number Right : " + mNumberCorrect +
                 " out of " + mDisplayQuestionNumber);
-        FlurryAgent.logEvent("Final Score: " + "product: " + Build.PRODUCT + " model: " + Build.MODEL + " device: " + Build.DEVICE + " total Number Right : " +
-                mNumberCorrect + " out of " + mDisplayQuestionNumber);
+        FlurryAgent.logEvent(
+                "Final Score: " + "product: " + Build.PRODUCT + " model: " + Build.MODEL + " device: " + Build.DEVICE + " total Number Right : " +
+                        mNumberCorrect + " out of " + mDisplayQuestionNumber);
     }
 
     private String getFunnyMessage() {
