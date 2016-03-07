@@ -83,60 +83,24 @@ public class GameFragment extends FartFragment implements OnClickListener {
             mGameProgressText.setText(Html.fromHtml(displayProgressText()));
         }
 
+        //TODO: set showcase view only once set in preference manager.
+
         ShowcaseView v = new ShowcaseView.Builder(getActivity())
                 .setStyle(R.style.ShowcaseViewEdited)
                 .setTarget(new ViewTarget(mPlayButton))
-                .singleShot(1)
-                .setContentTitle(getActivity().getResources().getString(R.string.click_play)).build();
+                .doNotBlockTouches()
+                .singleShot(2)
+                .setContentTitle(getActivity().getResources().getString(R.string.click_play))
+                .build();
 
-        v.overrideButtonClick(new OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                try {
-                    ((View) view.getParent()).setVisibility(View.GONE);
-                } catch (ClassCastException e) {
-                    // In case if item is the top most view
-                }
-                Button b = (Button) view.findViewById(R.id.showcase_button);
-                b.setVisibility(View.GONE);
-
-//                ShowcaseView v = new ShowcaseView.Builder(getActivity())
-//                        .setStyle(R.style.ShowcaseViewEdited)
-//                        .setTarget(new ViewTarget(mFakeButton))
-//                        .setContentTitle(getActivity().getResources().getString(R.string.click_fake)).build();
-//                v.overrideButtonClick(new OnClickListener() {
-//                    @Override
-//                    public void onClick(final View view) {
-//                        try {
-//                            ((View) view.getParent()).setVisibility(View.GONE);
-//                        } catch (ClassCastException e) {
-//                            // In case if item is the top most view
-//                        }
-//                        Button b = (Button) view.findViewById(R.id.showcase_button);
-//                        b.setVisibility(View.GONE);
-//
-//                        ShowcaseView v = new ShowcaseView.Builder(getActivity())
-//                                .setStyle(R.style.ShowcaseViewEdited)
-//                                .setTarget(new ViewTarget(mRealButton))
-//                                .setContentTitle(getActivity().getResources().getString(R.string.click_real)).build();
-//
-//                        v.overrideButtonClick(new OnClickListener() {
-//                            @Override
-//                            public void onClick(final View view) {
-//                                try {
-//                                    ((View) view.getParent()).setVisibility(View.GONE);
-//                                } catch (ClassCastException e) {
-//                                    // In case if item is the top most view
-//                                }
-//                                Button b = (Button) view.findViewById(R.id.showcase_button);
-//                                b.setVisibility(View.GONE);
-//                            }
-//                        });
-//                    }
-//                });
-            }
-        });
-
+//        if (PrefManager.isFirstTimeUser(getActivity())) {
+//            Log.i("Reid", "first time user");
+//            ShowcaseView v = new ShowcaseView.Builder(getActivity())
+//                    .setStyle(R.style.ShowcaseViewEdited)
+//                    .setTarget(new ViewTarget(mPlayButton))
+//                    .singleShot(1)
+//                    .setContentTitle(getActivity().getResources().getString(R.string.click_play)).build();
+//        }
         return rootView;
     }
 
