@@ -9,8 +9,8 @@ android {
         applicationId "com.kalei.fartgames"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 11
-        versionName "1.1.4"
+        versionCode 12
+        versionName "1.1.5"
     }
     buildTypes {
         release {
@@ -54,4 +54,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile files('libs/FlurryAnalytics-6.2.0.jar')
+    compile files('libs/amazon-ads-5.7.1.jar')
 }

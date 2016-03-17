@@ -38,6 +38,9 @@
         <activity android:name=".activities.SettingsActivity"
                   android:label="@string/game"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name="com.amazon.device.ads.AdActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"/>
     </application>
 
 </manifest>
