@@ -9,8 +9,8 @@ android {
         applicationId "com.kalei.fartgames"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 12
-        versionName "1.1.5"
+        versionCode 15
+        versionName "1.1.8"
     }
     buildTypes {
         release {

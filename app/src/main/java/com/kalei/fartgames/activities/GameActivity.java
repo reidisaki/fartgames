@@ -1,6 +1,7 @@
 package com.kalei.fartgames.activities;
 
 import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
 import com.kalei.fartgames.FartApplication;
@@ -36,7 +37,6 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
         loadToolbar(getString(R.string.app_name));
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial));
-        requestNewInterstitial();
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -48,6 +48,14 @@ public class GameActivity extends FartActivity implements IGameActivityListener 
 
             }
         });
+    }
+
+    protected void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
     private void setupFart() {

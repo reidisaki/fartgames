@@ -1,20 +1,18 @@
 package com.kalei.fartgames.activities;
 
-import com.amazon.device.ads.Ad;
-import com.amazon.device.ads.AdError;
-import com.amazon.device.ads.AdLayout;
-import com.amazon.device.ads.AdProperties;
-import com.amazon.device.ads.AdRegistration;
-import com.amazon.device.ads.AdTargetingOptions;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+
 import com.kalei.fartgames.FartApplication;
 import com.kalei.fartgames.R;
 import com.kalei.fartgames.utils.IntentGenerator;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,16 +22,18 @@ import android.view.View;
  */
 public abstract class FartActivity extends AppCompatActivity {
 
-    private AdLayout adView;
+    //    private AdLayout adView;
+    InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        AdRegistration.setAppKey(getString(R.string.amazon_ad_key));
-        AdRegistration.enableLogging(true);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial));
+//        AdRegistration.setAppKey(getString(R.string.amazon_ad_key));
+//        AdRegistration.enableLogging(true);
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -67,20 +67,20 @@ public abstract class FartActivity extends AppCompatActivity {
     }
 
     public void loadAds() {
-        adView = (AdLayout) findViewById(R.id.adview);
-
-        AdTargetingOptions adOptions = new AdTargetingOptions();
-        // Optional: Set ad targeting options here.
-        adView.loadAd(adOptions); // Retrieves an ad on background thread
+//        adView = (AdLayout) findViewById(R.id.adview);
 //
-//        AdView mAdView = (AdView) findViewById(R.id.adView);
-//        if (mAdView != null) {
-//            String android_id = Secure.getString(this.getContentResolver(),
-//                    Secure.ANDROID_ID);
-////            AdRequest adRequest = new AdRequest.Builder().addTestDevice(android_id).build();
-//            AdRequest adRequest = new AdRequest.Builder().build();
-//            mAdView.loadAd(adRequest);
-//        }
+//        AdTargetingOptions adOptions = new AdTargetingOptions();
+//        // Optional: Set ad targeting options here.
+//        adView.loadAd(adOptions); // Retrieves an ad on background thread
+//
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        if (mAdView != null) {
+            String android_id = Secure.getString(this.getContentResolver(),
+                    Secure.ANDROID_ID);
+//            AdRequest adRequest = new AdRequest.Builder().addTestDevice(android_id).build();
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        }
     }
 
     public void loadToolbar(String title) {
@@ -115,43 +115,43 @@ public abstract class FartActivity extends AppCompatActivity {
     }
 
     protected void requestNewInterstitial() {
-        final com.amazon.device.ads.InterstitialAd interstitialAd = new com.amazon.device.ads.InterstitialAd(this);
-
-        // Set the listener to use the callbacks below.
-        interstitialAd.setListener(new com.amazon.device.ads.AdListener() {
-            @Override
-            public void onAdLoaded(final Ad ad, final AdProperties adProperties) {
-                interstitialAd.showAd();
-            }
-
-            @Override
-            public void onAdFailedToLoad(final Ad ad, final AdError adError) {
-                Log.i("pl", "ad failed: " + adError.getMessage());
-            }
-
-            @Override
-            public void onAdExpanded(final Ad ad) {
-
-            }
-
-            @Override
-            public void onAdCollapsed(final Ad ad) {
-
-            }
-
-            @Override
-            public void onAdDismissed(final Ad ad) {
-
-            }
-        });
-
-        // Load the interstitial.
-        interstitialAd.loadAd();
-
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
-//                .build();
+//        final com.amazon.device.ads.InterstitialAd interstitialAd = new com.amazon.device.ads.InterstitialAd(this);
 //
-//        mInterstitialAd.loadAd(adRequest);
+//        // Set the listener to use the callbacks below.
+//        interstitialAd.setListener(new com.amazon.device.ads.AdListener() {
+//            @Override
+//            public void onAdLoaded(final Ad ad, final AdProperties adProperties) {
+//                interstitialAd.showAd();
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(final Ad ad, final AdError adError) {
+//                Log.i("pl", "ad failed: " + adError.getMessage());
+//            }
+//
+//            @Override
+//            public void onAdExpanded(final Ad ad) {
+//
+//            }
+//
+//            @Override
+//            public void onAdCollapsed(final Ad ad) {
+//
+//            }
+//
+//            @Override
+//            public void onAdDismissed(final Ad ad) {
+//
+//            }
+//        });
+//
+//        // Load the interstitial.
+//        interstitialAd.loadAd();
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 }
