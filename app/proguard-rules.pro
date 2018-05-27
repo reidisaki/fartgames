@@ -17,3 +17,5 @@
 #}
 
 -dontwarn com.flurry.**
+-dontwarn okio.**
+-dontwarn **
