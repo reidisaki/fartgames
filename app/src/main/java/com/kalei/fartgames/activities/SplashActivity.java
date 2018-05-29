@@ -28,6 +28,7 @@ public class SplashActivity extends FartActivity {
     public boolean skipAd = false;
     private final List<String> placement_collection = Arrays.asList("INTERSTITIAL-5569808");
     public RelativeLayout flex_feed;
+    boolean rendered = false;
     private final LoadAdCallback vungleLoadAdCallback = new LoadAdCallback() {
         @Override
         public void onAdLoad(String s) {
@@ -65,6 +66,7 @@ public class SplashActivity extends FartActivity {
             public void onSuccess() {
                 // Initialization has succeeded and SDK is ready to load an ad or play one if there
                 // is one pre-cached already
+
                 renderAd(placement_collection.get(0));
             }
 
@@ -81,6 +83,7 @@ public class SplashActivity extends FartActivity {
                 // NOTE: This callback works only for the auto-cached placement. Otherwise, please use
                 // LoadAdCallback with loadAd API for loading placements.
                 int x = 9;
+
                 renderAd(placementId);
             }
         });
@@ -114,7 +117,8 @@ public class SplashActivity extends FartActivity {
     }
 
     private void renderAd(String id) {
-        if (Vungle.isInitialized() && Vungle.canPlayAd(id)) {
+        if (Vungle.isInitialized() && Vungle.canPlayAd(id) && !rendered) {
+            rendered = true;
             Vungle.playAd(placement_collection.get(0), null, vunglePlayAdCallback);
 //        Vungle.playAd(placement_collection.get(0), null, null);
         }
@@ -129,8 +133,10 @@ public class SplashActivity extends FartActivity {
         @Override
         public void onAdEnd(final String placementReferenceID, final boolean completed, final boolean isCTAClicked) {
             int x = 98;
-            startActivity(IntentGenerator.getMenuActivityIntent(SplashActivity.this));
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            if (!isCTAClicked) {
+                startActivity(IntentGenerator.getMenuActivityIntent(SplashActivity.this));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
         }
 
         @Override
